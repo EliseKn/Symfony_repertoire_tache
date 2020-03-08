@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HomePage{% endblock %}
+
+{% block body %}
+    <h1>Utilisateurs</h1>
+
+    <a href="{{path('task')}}">Voir les taches</a>
+
+    {% if users is not empty %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Tâches</th>
+                    <th>Date d'inscription</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for user in users %}
+                
+                <tr>
+                    <td>
+                        <a href="{{path('my_user', {'id': user.id})}}">
+                            {{ user.lastname }} {{ user.firstname }}
+                        </a>
+                    </td>
+                    <td> {{ user.email}} </td>
+                    <td> </td>
+                    <td> {{ user.createdAt|date('d/m/y')}} </td>
+
+                    <td>
+                        <a href="{{ path('delete_user', {'id': user.id})}}">
+                        X </a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+            
+        {% else %}
+            <p>Il n'y a aucun utilisateur</p>
+        {% endif %}
+        
+        <h2>Ajouter un utilisateur</h2>
+        {{ form(form_user_add)}}
+
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends  "base.html.twig" %}
+
+{% block title %} {{ user.lastname }} {{ user.firstname }} {% endblock %}
+
+{% block body %}
+    <h1>{{ user.lastname }} {{ user.firstname }} </h1>
+    <h3>email: {{ user.email }}</h3>
+    <h3>date d'inscription : {{ user.createdAt|date('d/m/y')}}</h3>
+    <br/>
+
+     <h2>Modifier</h2>
+    {{form(form_user_edit)}}
+
+
+    {% if user.tasks is not empty %}
+        <h3>Tâche attribué :</h3>
+
+        {% for tasks in user %}
+
+        <p> {{ user.tasks }} </p>
+        <p>
+            <a href="{{ path('delete_task', {'id': tasks.id})}}">
+             Supprimer cette tâche</a>
+        </p>
+        {% endfor %}
+
+    {% else %}
+        <p>Aucune tâche n'est attribué à {{ user.lastname }} {{ user.firstname }} </p>
+    {% endif %}
+
+    </br>
+    <a href="{{path('home')}}">Retour aux Utilisateurs</a>
+
+{% endblock %}

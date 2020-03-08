@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block title %} {{ task.name }}  {% endblock %}
+
+{% block body %}
+    <h1>{{ task.name }}</h1>
+    <h3>deadline : {{ task.deadline|date('d/m/y')}}</h3>
+    <h3>state : {{ task.state }}</h3>
+    <h3>utilisateur : {{ task.user }}</h3>
+    <br/>
+
+    <h2>Modifier</h2>
+    {{form(form_task_edit)}}
+
+    </br>
+    <a href="{{path('task')}}">Retour aux Tâches</a>
+
+{% endblock %}

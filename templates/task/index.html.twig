@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} task {% endblock %}
+
+{% block body %}
+
+ <h1>Tâches</h1>
+ <a href="{{path('home')}}">Voir les utilisateurs</a>
+
+    {% if tasks is not empty %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>deadline</th>
+                    <th>État</th>
+                    <th>Action</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+
+                    <td>
+                        <a href="{{ path('my_task', {'id': task.id})}}"</a>
+                    {{ task.name }}
+                    </td>
+                    
+                    <td>{{ task.deadline|date('d/m/y')}}</td>
+                    <td>{{ task.state }}</td>
+
+                    <td>
+                        <a href="{{ path('delete_task', {'id': task.id})}}">
+                        Supprimer </a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+    {% else %}
+        <p>Il n'y a aucune tâche</p>
+    {% endif %}
+
+        <h2>Ajouter une tâche</h2>
+        {{ form(form_task_add)}}
+
+{% endblock %}
