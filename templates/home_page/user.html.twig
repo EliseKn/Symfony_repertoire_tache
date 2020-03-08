@@ -12,14 +12,15 @@
     {{form(form_user_edit)}}
 
 
-    {% if user.tasks is not empty %}
+    {% if user.task is not empty %}
         <h3>Tâche attribué :</h3>
 
-        {% for tasks in user %}
+        {% for task in user.task %}
 
-        <p> {{ user.tasks }} </p>
+        <p> {{ task.name }} </p>
+        <p>{{ task.state ? 'Validée' : 'En cours' }}</p>
         <p>
-            <a href="{{ path('delete_task', {'id': tasks.id})}}">
+            <a href="{{ path('delete_task', {'id': task.id})}}">
              Supprimer cette tâche</a>
         </p>
         {% endfor %}

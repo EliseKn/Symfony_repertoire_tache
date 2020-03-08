@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,6 +27,8 @@ class HomePageController extends AbstractController
             
             $pdo->persist($user);
             $pdo->flush();
+
+            $this->addFlash("success", "Utilisateur ajouté !");
         }
 
         $users = $pdo->getRepository(User::class)->findAll();
@@ -57,6 +58,8 @@ class HomePageController extends AbstractController
                 $pdo = $this->getDoctrine()->getManager();
                 $pdo->persist($user);
                 $pdo->flush();
+
+                $this->addFlash("success", "Utilisateur modifié !");
             }
 
             return $this->render('home_page/user.html.twig', [
@@ -66,6 +69,7 @@ class HomePageController extends AbstractController
         }
         else {
             // l'utilisateur n'existe pas 
+            $this->addFlash("danger", "Utilisateur introuvable ");
             return $this-> redirectToRoute('home');
         }
      }

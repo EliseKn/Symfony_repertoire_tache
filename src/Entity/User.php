@@ -107,6 +107,11 @@ class User
     /**
      * @return Collection|Task[]
      */
+
+    public function __toString(){
+        return $this->getTask();
+    }
+    
     public function getTask(): Collection
     {
         return $this->task;
@@ -135,7 +140,4 @@ class User
         return $this;
     }
 
-    public function __toString(){
-        return $this->getLastname();
-    }
 }
